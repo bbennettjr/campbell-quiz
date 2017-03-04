@@ -71,6 +71,18 @@ function QuizProgress(props) {
     );
 }
 
+// Quotes
+function Quotes(props) {
+  return (
+    <div className="container">
+      <blockquote>
+        <p>Mickey Bite!</p>
+        <footer>Annoyed Bob in <cite title="Source Title">The Kids Came Home</cite></footer>
+      </blockquote>
+    </div>
+    );
+}
+
 class App extends Component {
   render() {
     return (
@@ -86,6 +98,7 @@ class App extends Component {
         <QuizNaviation />
         <Pagination />
         <QuizProgress />
+        <Quotes />
       </div>
     );
   }
