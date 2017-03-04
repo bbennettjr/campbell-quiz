@@ -5,6 +5,8 @@ import { PageHeader } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Tabs } from 'react-bootstrap';
 import { Tab } from 'react-bootstrap';
+import { Pager } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 
 // Quiz Banner
 function QuizBanner(props) {
@@ -21,10 +23,10 @@ class QuizNaviation extends Component {
   render() {
     return (
       <Tabs activeKey={1}>
-        <Tab eventKey={1} title="1">Tab 1</Tab>
-        <Tab eventKey={2} title="2">Tab 2</Tab>
-        <Tab eventKey={3} title="3">Tab 3</Tab>
-        <Tab eventKey={4} title="4">Tab 4</Tab>
+        <Tab eventKey={1} title="The Real Bob"><QuestionPrompt /></Tab>
+        <Tab eventKey={2} title="JC & the Girls"></Tab>
+        <Tab eventKey={3} title="Ed & Rich"></Tab>
+        <Tab eventKey={4} title="The Royalty"></Tab>
       </Tabs>
       );
   }
@@ -33,7 +35,39 @@ class QuizNaviation extends Component {
 // Question Prompt
 function QuestionPrompt(props) {
   return (
-    <th><tr>Question prompt</tr></th>
+    <div>
+      <table>
+        <thead>
+          <tr><th>Question prompt</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>choices</td></tr>
+          <tr><td>choices</td></tr>
+          <tr><td>choices</td></tr>
+          <tr><td>choices</td></tr>
+          <tr><td>choices</td></tr>
+        </tbody>
+      </table>
+    </div>
+    );
+}
+
+// Pagination
+function Pagination(props) {
+  return (
+    <Pager>
+      <Pager.Item previous href="#">&larr; Previous</Pager.Item>
+      <Pager.Item next href="#">&rarr; Next</Pager.Item>
+    </Pager>
+    );
+}
+
+// Quiz Progress Bar
+function QuizProgress(props) {
+  return (
+    <div>
+      <ProgressBar bsStyle="success" now={40} />
+    </div>
     );
 }
 
@@ -50,7 +84,8 @@ class App extends Component {
         </p>
         <QuizBanner />
         <QuizNaviation />
-        <Button bsStyle="info" bsSize='large'>Danger</Button>
+        <Pagination />
+        <QuizProgress />
       </div>
     );
   }
