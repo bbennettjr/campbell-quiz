@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { PageHeader, Button, Tabs, Tab, Pager, ProgressBar } from 'react-bootstrap';
+import { PageHeader, Button, Tabs, Tab, Pager, ProgressBar, Table } from 'react-bootstrap';
 
 // Quiz Banner
 function QuizBanner(props) {
@@ -33,7 +33,7 @@ class QuizNaviation extends Component {
 function QuestionPrompt(props) {
   return (
     <div className="container">
-      <table>
+      <Table responseive hover>
         <thead>
           <tr><th>Question prompt</th></tr>
         </thead>
@@ -44,7 +44,7 @@ function QuestionPrompt(props) {
           <tr><td>choices</td></tr>
           <tr><td>choices</td></tr>
         </tbody>
-      </table>
+      </Table>
     </div>
     );
 }
