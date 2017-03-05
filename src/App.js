@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { PageHeader } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import { Tabs } from 'react-bootstrap';
-import { Tab } from 'react-bootstrap';
-import { Pager } from 'react-bootstrap';
-import { ProgressBar } from 'react-bootstrap';
+import { PageHeader, Button, Tabs, Tab, Pager, ProgressBar } from 'react-bootstrap';
 
 // Quiz Banner
 function QuizBanner(props) {
