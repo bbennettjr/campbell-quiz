@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { PageHeader, Button, Tabs, Tab, Pager, ProgressBar, Table } from 'react-bootstrap';
+import { PageHeader, Button, Tabs, Tab, Pager, ProgressBar, Table, Label } from 'react-bootstrap';
 
 // Quiz Banner
 function QuizBanner(props) {
   return (
-    <PageHeader>Campbell Quiz <small>Test your knowledge of this <label bsClass="label" bsStyle="danger">magnetic</label> family</small></PageHeader>
+    <PageHeader>Campbell Quiz <small>Test your knowledge of this <Label bsClass="label" bsStyle="danger">magnetic</Label> family</small></PageHeader>
     );
 }
 
@@ -32,12 +32,11 @@ class QuizNaviation extends Component {
 // Question Prompt
 function QuestionPrompt(props) {
   return (
-    <div className="container">
-      <Table responseive hover>
+      <Table responsive hover>
         <thead>
-          <tr><th>Question prompt</th></tr>
+          <tr><th><h4 className="text-center"><strong>Question prompt</strong></h4></th></tr>
         </thead>
-        <tbody>
+        <tbody className="text-left">
           <tr><td>choices</td></tr>
           <tr><td>choices</td></tr>
           <tr><td>choices</td></tr>
@@ -45,7 +44,6 @@ function QuestionPrompt(props) {
           <tr><td>choices</td></tr>
         </tbody>
       </Table>
-    </div>
     );
 }
 
@@ -73,7 +71,7 @@ function QuizProgress(props) {
 // Quotes
 function Quotes(props) {
   return (
-    <div className="container">
+    <div className="container text-left">
       <blockquote>
         <p>Mickey Bite!</p>
         <footer>Annoyed Bob in <cite title="Source Title">The Kids Came Home</cite></footer>
