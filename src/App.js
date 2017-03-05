@@ -17,12 +17,14 @@ class QuizNaviation extends Component {
   }
   render() {
     return (
+      <div className="container">
       <Tabs activeKey={1}>
         <Tab eventKey={1} title="The Real Bob"><QuestionPrompt /></Tab>
         <Tab eventKey={2} title="JC & the Girls"></Tab>
         <Tab eventKey={3} title="Ed & Rich"></Tab>
         <Tab eventKey={4} title="The Royalty"></Tab>
       </Tabs>
+      </div>
       );
   }
 }
@@ -30,7 +32,7 @@ class QuizNaviation extends Component {
 // Question Prompt
 function QuestionPrompt(props) {
   return (
-    <div>
+    <div className="container">
       <table>
         <thead>
           <tr><th>Question prompt</th></tr>
@@ -50,17 +52,19 @@ function QuestionPrompt(props) {
 // Pagination
 function Pagination(props) {
   return (
+    <div className="container">
     <Pager>
       <Pager.Item previous href="#">&larr; Previous</Pager.Item>
       <Pager.Item next href="#">&rarr; Next</Pager.Item>
     </Pager>
+    </div>
     );
 }
 
 // Quiz Progress Bar
 function QuizProgress(props) {
   return (
-    <div>
+    <div className="container">
       <ProgressBar bsStyle="success" now={40} />
     </div>
     );
