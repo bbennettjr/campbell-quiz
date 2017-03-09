@@ -38,6 +38,62 @@ var edRichQuestinos = [{prompt: "Who is the MVP of Campbell & Co. Jewelers?", ch
 var royaltyQuestions = [{prompt: "Who is the princess?", choices: ["Kristen", "Diane", "Elise", "Brad", "Fred"], correctAnswer: 3},
 {prompt: "Question 2?", choices: ["1", "2", "3", "4", "5"], correctAnswer: 3}];
 
+function Quiz(qName, qQuestions) {
+  let name = qName;
+  let questions = qQuestions;
+  let currentQ = 1;
+  let history = [];
+
+  // Get current question number
+  this.getQuesNum = function() {
+    return currentQ - 1;
+  }
+  // Increment question number
+  this.IncQuesNum = function() {
+    currentQ = currentQ >= questions.length ? questions.length : currentQ++;
+  }
+  // Decrement question number
+  this.DecQuesNum = function() {
+    currentQ = currentQ <= 0 ? 0 : currentQ--;
+  }
+  // Get current question prompt
+  this.getQuesPrompt = function() {
+    return questions[currentQ];
+  }
+  // Get history
+  this.getHistory = function() {
+    return history.slice();
+  }
+  // Set history
+  this.setHistory = function(index, newVal) {
+    if (questions[index] != undefined) {
+      history[index] = newVal;
+    }
+  }
+  // Get progress
+  this.progress = function() {
+    return Math.round(currentQ / (questions.length) * 100);
+  }
+  // Calculate score
+  this.calcScore = function() {
+    var myScore = 0;
+    var i = 0;
+    for (i; i < this.questions.length - 1; i++) {
+      if (history[i] == this.questions[i].correctAnswer) {
+        myScore++;
+      }
+    }
+    return Math.round(100 * myScore / (this.questions.length - 1));
+  }
+}
+
+let guyQuiz = new Quiz("Bobbo & the Guys", guysQuestions);
+let cousinQuiz = new Quiz("John, Corinna & the Girls", cousinQuestions);
+let edRichQuiz = new Quiz("Ed & Rich", edRichQuestinos);
+let royaltyQuiz = new Quiz("The Royalty", royaltyQuestions);
+
+/* ---------------------------- REACT ES6 and JSX Below ---------------------------- */
+
 // Quiz Banner
 function QuizBanner(props) {
   return (
@@ -51,22 +107,23 @@ class QuizNaviation extends Component {
     super();
     this.state = {
       activeTabKey : 1,
+      activeQuiz : null,
       currentQ : 1,
       history: []
       }
-    this.changeTab = this.changeTab.bind(this);
+    this.selectTab = this.selectTab.bind(this);
     this.handleClickRight = this.handleClickRight.bind(this);
     this.handleClickLeft = this.handleClickLeft.bind(this);
     this.updateHistory = this.updateHistory.bind(this);
   }
 
-  changeTab(newKey){
-    this.setState({activeTabKey : newKey})
+  selectTab(key){
+    this.setState({activeTabKey : key});
   }
 
   handleClickRight() {
     let choice = this.state.history[this.state.currentQ - 1]
-    if(choice == undefined){
+    if(choice === undefined){
       return;
     }
     this.setState({
@@ -93,7 +150,7 @@ class QuizNaviation extends Component {
     const history = this.state.history;
     return (
       <div className="container">
-        <Tabs activeKey={this.state.activeTabKey} onSelect={(key) => this.setState({activeTabKey: key})}>
+        <Tabs activeKey={this.state.activeTabKey} onSelect={(key) => this.selectTab(key)}>
           <Tab eventKey={1} 
                title="The Real Bob" 
           >
