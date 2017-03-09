@@ -105,11 +105,11 @@ function QuizBanner(props) {
 class QuizNaviation extends Component {
   constructor(props) {
     super();
+    this.activeQuiz = guyQuiz;
     this.state = {
       activeTabKey : 1,
-      activeQuiz : null,
-      currentQ : 1,
-      history: []
+      currentQ : this.activeQuiz.getQuesNum(),
+      history: this.activeQuiz.getHistory()
       }
     this.selectTab = this.selectTab.bind(this);
     this.handleClickRight = this.handleClickRight.bind(this);
@@ -118,31 +118,38 @@ class QuizNaviation extends Component {
   }
 
   selectTab(key){
-    this.setState({activeTabKey : key});
+    if (key === 1) this.activeQuiz = guyQuiz;
+    if (key === 2) this.activeQuiz = cousinQuiz;
+    if (key === 3) this.activeQuiz = edRichQuiz;
+    if (key === 4) this.activeQuiz = royaltyQuiz;
+    this.setState({
+      activeTabKey : key,
+      currentQ : this.activeQuiz.getQuesNum(),
+      history : this.activeQuiz.getHistory()
+    });
   }
 
   handleClickRight() {
-    let choice = this.state.history[this.state.currentQ - 1]
+    let choice = this.state.history[this.state.currentQ]
     if(choice === undefined){
       return;
     }
+    this.activeQuiz.IncQuesNum();
     this.setState({
-      currentQ : this.state.currentQ >= 100 ? 100 : this.state.currentQ + 1,
+      currentQ : this.activeQuiz.getQuesNum()
     });
-
-
   }
 
   handleClickLeft() {
+    this.activeQuiz.DecQuesNum();
     this.setState({
-      currentQ : this.state.currentQ <= 1 ? 1 : this.state.currentQ - 1
+      currentQ : this.activeQuiz.getQuesNum()
     });
   }
 
   updateHistory(index, newVal) {
-    let history = this.state.history.slice();
-    history[index] = newVal;
-    this.setState({history : history})
+    this.activeQuiz.setHistory(index, newVal);
+    this.setState({history : this.activeQuiz.history()})
   }
 
   render() {
@@ -191,15 +198,15 @@ class QuestionPrompt extends Component {
           </thead>
           <tbody className="text-left">
             <tr><Choice 
-                    isActive={this.props.history[this.props.currentQ - 1] === 0} 
+                    isActive={this.props.history[this.props.currentQ] === 0} 
                     answerChoice={this.props.question.choices[0]} 
                     onClick={() => this.props.updateHistory(this.props.currentQ - 1, 0)}
                  />
             </tr>
-            <tr><Choice isActive={this.props.history[this.props.currentQ - 1] === 1} answerChoice={this.props.question.choices[1]} onClick={() => this.props.updateHistory(this.props.currentQ - 1, 1)}/></tr>
-            <tr><Choice isActive={this.props.history[this.props.currentQ - 1] === 2} answerChoice={this.props.question.choices[2]} onClick={() => this.props.updateHistory(this.props.currentQ - 1, 2)}/></tr>
-            <tr><Choice isActive={this.props.history[this.props.currentQ - 1] === 3} answerChoice={this.props.question.choices[3]} onClick={() => this.props.updateHistory(this.props.currentQ - 1, 3)}/></tr>
-            <tr><Choice isActive={this.props.history[this.props.currentQ - 1] === 4} answerChoice={this.props.question.choices[4]} onClick={() => this.props.updateHistory(this.props.currentQ - 1, 4)}/></tr>
+            <tr><Choice isActive={this.props.history[this.props.currentQ] === 1} answerChoice={this.props.question.choices[1]} onClick={() => this.props.updateHistory(this.props.currentQ, 1)}/></tr>
+            <tr><Choice isActive={this.props.history[this.props.currentQ] === 2} answerChoice={this.props.question.choices[2]} onClick={() => this.props.updateHistory(this.props.currentQ, 2)}/></tr>
+            <tr><Choice isActive={this.props.history[this.props.currentQ] === 3} answerChoice={this.props.question.choices[3]} onClick={() => this.props.updateHistory(this.props.currentQ, 3)}/></tr>
+            <tr><Choice isActive={this.props.history[this.props.currentQ] === 4} answerChoice={this.props.question.choices[4]} onClick={() => this.props.updateHistory(this.props.currentQ, 4)}/></tr>
           </tbody>
         </Table>
       );
